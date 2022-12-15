@@ -1,0 +1,43 @@
+/* Styles specific to the header */
+
+header {
+  font-size: 1rem;
+  border-bottom: 1px solid #223;
+  padding: 0 4px;
+  margin-bottom: 5px;
+  background-color: #2e2e44;
+  box-shadow: 0 2px 6px #222;
+  user-select: none;
+}
+.menu-link {
+  padding: 8px 16px;
+  transition: background-color 0.2s;
+  cursor: pointer;
+  & > img {
+    width: 16px;
+    vertical-align: text-bottom;
+  }
+  &:hover {
+    background-color: #555;
+  }
+}
+#main-link {
+  padding-right: 28px;
+}
+#logo {
+  margin-right: 7px;
+  width: 17px;
+}
+#name {
+  margin-top: 2px;
+}
+#github {
+  width: 22px;
+  vertical-align: middle;
+}
+#query {
+  height: 24px;
+  margin-top: 5px;
+  color: #eef;
+  flex-grow: 1;
+}

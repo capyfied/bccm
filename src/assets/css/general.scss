@@ -1,0 +1,155 @@
+/* Styles that apply to all pages */
+
+html {
+  font-size: 16px;
+}
+body {
+  background-color: #22222c;
+  color: white;
+  margin: 0;
+  font-family: Ubuntu, Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+main {
+  padding: 5px;
+}
+h1 {
+  font-size: 1.1rem;
+  margin-top: 30px;
+  margin-bottom: 8px;
+}
+h2 {
+  font-size: 0.96rem;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+ol {
+  margin: 3px 0;
+}
+p {
+  margin: 8px 0;
+}
+code {
+  background-color: #222;
+  border-radius: 3px;
+  padding: 2px 6px;
+  font-size: 90%;
+}
+small {
+  font-size: 80%;
+  color: #aac;
+}
+input[type="text"] {
+  margin-top: 3px;
+  font-size: 0.8rem;
+  background-color: #38384a;
+  border: 0;
+  border-radius: 2px;
+  color: white;
+  padding: 4px 6px;
+}
+input[type="text"]:disabled {
+  background-color: #2a2a32;
+}
+th {
+  text-align: left;
+}
+.btn {
+  color: white;
+  border: 0;
+  border-radius: 3px;
+  font-size: 0.86rem;
+  padding: 5px 12px;
+  margin: 1px 2px;
+  cursor: pointer;
+  box-shadow: 0 0 6px #1d1d1f;
+  & > img {
+    width: 14px;
+    vertical-align: bottom;
+    margin-right: 3px;
+  }
+  &:disabled {
+    cursor: not-allowed;
+    color: #ddd;
+    opacity: 0.25;
+    filter: saturate(0);
+  }
+  &:hover {
+    filter: brightness(1.08);
+  }
+}
+.btn-primary {
+  background-color: #34344a;
+}
+.btn-warning {
+  background-color: #514334;
+}
+.btn-success {
+  background-color: #3b5c2e;
+}
+.btn-danger {
+  background-color: #542727;
+}
+.btn-transparent {
+  color: white;
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+}
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.clickable {
+  cursor: pointer;
+}
+.icon {
+  width: 12px;
+}
+.icon-sm {
+  width: 10px;
+}
+.icon-lg {
+  width: 16px;
+}
+.muted {
+  color: #353548;
+}
+.text-bold {
+  font-weight: bold;
+}
+.text-center {
+  text-align: center;
+}
+.text-right {
+  text-align: right;
+}
+.text-sm {
+  font-size: 0.8rem;
+}
+.w-100 {
+  width: 100%;
+}
+.float-right {
+  float: right;
+}
+/* Scrollbars */
+.scrollable {
+  overflow-y: auto;
+  scrollbar-color: #29293a #1d1d26;
+}
+::-webkit-scrollbar {
+  height: 12px;
+  width: 12px;
+  background: #1d1d26;
+}
+::-webkit-scrollbar-thumb {
+    background: #29293a;
+    -webkit-border-radius: 1ex;
+    -webkit-box-shadow: 0px 1px 2px #222;
+}
+::-webkit-scrollbar-corner {
+    background: #1d1d26;
+}
