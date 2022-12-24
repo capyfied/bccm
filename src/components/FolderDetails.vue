@@ -15,10 +15,10 @@
     <div v-else class="mt-2 text-sm">No crafts</div>
     <div class="row mt-2 mx-n1">
       <div class="col-12 col-md-6 p-1">
-        <button class="btn btn-success w-100 ellipsis" @click="copyImportCommand"><img src="@/assets/img/clip-write.svg"/> Copy as export</button>
+        <button class="btn btn-success w-100 ellipsis" @click="copyImportCommand"><img src="@/assets/img/clip-write.svg"/> Copy as command</button>
       </div>
       <div class="col-12 col-md-6 p-1">
-        <button class="btn btn-primary w-100 ellipsis" @click="copyBCJson"><img src="@/assets/img/clip-write.svg"/> Copy as JSON</button>
+        <button class="btn btn-primary w-100 ellipsis" @click="copyAsCompressedBCJsons"><img src="@/assets/img/clip-write.svg"/> Copy as export</button>
       </div>
       <div class="col-12 col-md-6 p-1">
         <button class="btn btn-success w-100" @click="addFolder"><img src="@/assets/img/plus.svg"/> New subfolder</button>
@@ -54,6 +54,7 @@
 <script>
 import stores from "@/stores/stores.js";
 import { pluralize } from "@/util/util.js";
+import BCJsonFormat from "@/util/formats/bcJsonFormat.js";
 
 export default {
   name: 'FolderDetails',
@@ -92,9 +93,9 @@ export default {
         else throw e;
       }
     },
-    // Copy all of the folder's crafts to the clipboard as an array of BC JSONs.
-    copyBCJson() {
-      window.navigator.clipboard.writeText(JSON.stringify(this.folder.findAllCrafts().map(c => c.toBCJson())));
+    // Copy all of the folder's crafts to the clipboard as a compressed array of BC JSONs.
+    copyAsCompressedBCJsons() {
+      window.navigator.clipboard.writeText(BCJsonFormat.convertCraftsToCompressedBCJsons(this.folder.findAllCrafts()));
     },
     // Move the folder up or down among its siblings.
     moveFolder(direction) {

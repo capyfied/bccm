@@ -1,4 +1,4 @@
-import BCEncoder from "@/util/bcEncoder.js";
+import BCJsonFormat from "@/util/formats/bcJsonFormat.js";
 import { swap } from "@/util/util.js";
 import { assert, assertType } from "@/util/validations.js"
 
@@ -18,12 +18,12 @@ export default class Craft {
   type = null; // [String] An item-specific identifier for the default variant/position of the item to be used.
 
   // Convert a JSON into an Craft (this is the format we use for localStorage).
-  static fromJson(json, parent) {
+  static fromJson(json, parent = null) {
     if (!json || !parent) throw "Missing argument";
     const craft = new Craft();
     craft.uuid = json.uuid;
-    craft.item = json.item;
     craft.parent = parent;
+    craft.item = json.item;
     craft.property = json.property;
     craft.lock = json.lock;
     craft.name = json.name;
@@ -52,6 +52,7 @@ export default class Craft {
   // Ensure all the data in this Craft is valid, throwing an error if it isn't
   validate() {
     assertType(this, 'uuid', 'string');
+    assertType(this, 'parent', 'object');
     assertType(this, 'item', 'string');
     assertType(this, 'property', 'string', false);
     assertType(this, 'lock', 'string', false);
@@ -61,8 +62,9 @@ export default class Craft {
     assertType(this, 'private', 'boolean');
     assertType(this, 'type', 'string', false);
     assertType(this, 'priority', 'number', false);
-    assert(this.name.length > 0 && this.name.length <= Craft.NAME_MAX_LENGTH, `Name must be between 1 and ${Craft.NAME_MAX_LENGTH} characters`);
-    assert(this.name.length <= Craft.DESCR_MAX_LENGTH, `Description must be between 1 and ${Craft.DESCR_MAX_LENGTH} characters`);
+    assert(this.priority === null || Number.isInteger(this.priority), "Priority must be an integer.");
+    assert(this.name.length > 0 && this.name.length <= Craft.NAME_MAX_LENGTH, `Name must be between 1 and ${Craft.NAME_MAX_LENGTH} characters.`);
+    assert(this.name.length <= Craft.DESCR_MAX_LENGTH, `Description must be under ${Craft.DESCR_MAX_LENGTH} characters.`);
   }
   // Move this craft up or down among its siblings. For moving to a different folder, see Database.moveCraft().
   move(direction) {
@@ -81,8 +83,8 @@ export default class Craft {
     return this.name.toLowerCase().includes(query) || this.item.toLowerCase().includes(query);
   }
   // Convenience methods for encoding/decoding.
-  static fromCompressedBCJson(base64String) { return BCEncoder.convertCompressedBCJsonToCraft(base64String); }
-  static fromBCJson(bcJson) { return BCEncoder.convertBCJsonToCraft(bcJson); }
-  toBCJson() { return BCEncoder.convertCraftToBCJson(this); }
-  toCompressedBCJson() { return BCEncoder.convertCraftToCompressedBCJson(this); }
+  static fromCompressedBCJson(base64String) { return BCJsonFormat.convertCompressedBCJsonToCraft(base64String); }
+  static fromBCJson(bcJson) { return BCJsonFormat.convertBCJsonToCraft(bcJson); }
+  toBCJson() { return BCJsonFormat.convertCraftToBCJson(this); }
+  toCompressedBCJson() { return BCJsonFormat.convertCraftToCompressedBCJson(this); }
 }

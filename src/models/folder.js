@@ -1,4 +1,4 @@
-import BCEncoder from "@/util/bcEncoder.js";
+import BCDataStringFormat from "@/util/formats/bcDataStringFormat.js";
 import Craft from "@/models/craft.js";
 import { generateUuid, swap } from "@/util/util.js";
 
@@ -67,14 +67,14 @@ export default class Folder {
     f.uuid = json.uuid;
     f.name = json.name,
     f.parent = parent;
-    f.subfolders = json.subfolders.map(sfjson => Folder.fromJson(sfjson, f));
-    f.crafts = (json.crafts || json.items).map(itjson => Craft.fromJson(itjson, f)); // TODO: remove the "json.items" left for backwards-compatibility
+    f.subfolders = json.subfolders.map(subfolderJson => Folder.fromJson(subfolderJson, f));
+    f.crafts = (json.crafts).map(craftJson => Craft.fromJson(craftJson, f));
     f.collapsed = json.collapsed;
     return f;
   }
   // Convert all the crafts in this folder into a command the user can run on BC to import them all
   toBCImportCommand() {
-    return BCEncoder.convertCraftsToBCImportCommand(this.findAllCrafts());
+    return BCDataStringFormat.convertCraftsToBCImportCommand(this.findAllCrafts());
   }
   // Move this folder up or down among its siblings. For moving to a different folder, see Database.moveFolder().
   move(direction) {

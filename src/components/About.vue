@@ -22,7 +22,7 @@
     <p>There are currently two ways:</p>
     <h2><img src="@/assets/img/save.svg" class="icon"/> Exporting a single craft (via FBC)</h2>
     <ol>
-      <li>Select the craft and click "Export to clipboard" </li>
+      <li>Select the craft and click "Copy as export" </li>
       <li>Go to BC and open a new craft</li>
       <li>Click the FBC "Import" button</li>
     </ol>
@@ -30,7 +30,7 @@
     <img src="@/assets/img/warn.svg" class="icon ml-4 mr-1"/>
     <span style="color: #d1b758; font-size: 90%;">This replaces <u>all</u> your BC crafts.</span>
     <ol>
-      <li>Select a folder to export and click "Export to clipboard", or select multiple crafts/folders together and click "Export"</li>
+      <li>Select a folder to export and click "Copy as command", or select multiple crafts/folders together and click "Export"</li>
       <li>Open the browser console on BC</li>
       <li>Paste the clipboard contents</li>
     </ol>

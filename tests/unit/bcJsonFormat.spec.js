@@ -1,4 +1,4 @@
-import BCEncoder from "@/util/bcEncoder.js";
+import BCJsonFormat from "@/util/formats/bcJsonFormat.js";
 import Craft from "@/models/craft.js";
 import Folder from "@/models/folder.js";
 import requireGlobals from "./requireGlobals.js";
@@ -16,7 +16,7 @@ const getTestCraft = () => Craft.fromJson({
   priority: null
 }, new Folder());
 
-describe('BCEncoder', () => {
+describe('BCJsonFormat', () => {
   beforeAll(requireGlobals);
 
   it('encodes and decodes a BC craft correctly', () => {
@@ -32,8 +32,8 @@ describe('BCEncoder', () => {
       Type: null,
       OverridePriority: null
     };
-    expect(BCEncoder.convertCraftToBCJson(craft)).toEqual(expectedBCJson);
-    const decodedCraft = BCEncoder.convertBCJsonToCraft(expectedBCJson);
+    expect(BCJsonFormat.convertCraftToBCJson(craft)).toEqual(expectedBCJson);
+    const decodedCraft = BCJsonFormat.convertBCJsonToCraft(expectedBCJson);
     decodedCraft.uuid = craft.uuid;
     expect(decodedCraft.toJson()).toEqual(craft.toJson());
   });
@@ -41,8 +41,8 @@ describe('BCEncoder', () => {
   it('encodes and decodes a compressed BC craft correctly', () => {
     const craft = getTestCraft();
     const expectedCompressedBCJson = "N4IgkgLgpgtiBcIAyUCGEAWUBOBhA9gDaGrYgA0IACtvgA44QCeCIBMAZi5UvgMYBrVgFkoEVISqoAJoX5DKAOVQworACpQAzhAAEfIiTKUAItr7YAlnQiX8AOw3a9081Zt3HlAnLKIAxABsAGIATIHh5P64AAyBAEIJFNRWAG7oavAQ2ACuUJTqTAwI9jnElADyqThWrjR2VswlZYQAvkA=";
-    expect(BCEncoder.convertCraftToCompressedBCJson(craft)).toEqual(expectedCompressedBCJson);
-    const decodedCraft = BCEncoder.convertCompressedBCJsonToCraft(expectedCompressedBCJson);
+    expect(BCJsonFormat.convertCraftToCompressedBCJson(craft)).toEqual(expectedCompressedBCJson);
+    const decodedCraft = BCJsonFormat.convertCompressedBCJsonToCraft(expectedCompressedBCJson);
     decodedCraft.uuid = craft.uuid;
     expect(decodedCraft.toJson()).toEqual(craft.toJson());
   });

@@ -52,7 +52,10 @@
               {{ craft.type }}
               <span v-if="!craft.type" class="muted">No position</span>
             </td>
-            <td class="c-priority">{{ craft.priority }}</td>
+            <td class="c-priority">
+              <template v-if="craft.priority != null">{{ craft.priority }}</template>
+              <span v-else class="muted">-</span>
+            </td>
             <td class="c-descr">
               {{ craft.description }}
               <span v-if="!craft.description" class="muted">No description</span>

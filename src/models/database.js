@@ -1,7 +1,7 @@
 import Folder from "@/models/folder.js";
 import Settings from "@/models/settings.js";
-import BCEncoder from "@/util/bcEncoder.js";
-import { debounce, renameObjectsToMakeThemUnique } from "@/util/util.js";
+import Importer from "@/util/importer.js";
+import { debounce, ellipsize, renameObjectsToMakeThemUnique } from "@/util/util.js";
 
 // This class contains all the user data.
 export default class Database {
@@ -37,6 +37,7 @@ export default class Database {
     // Now, go craft by craft and import them.
     for (let craft of newCrafts) {
       try {
+        craft.parent = this.rootFolder;
         craft.validate();
       } catch(e) {
         console.warn(`Skipping invalid craft "${craft.name}": ${e.message}"`);
@@ -99,7 +100,7 @@ export default class Database {
   }
   // Import Crafts from the provided string, which can be in any of the supported formats.
   importCrafts(stringToImport) {
-    return this.addCrafts(BCEncoder.convertStringToCrafts(stringToImport));
+    return this.addCrafts(Importer.convertStringToCrafts(stringToImport));
   }
   // Serialize this database to be stored in localStorage.
   serialize() {
@@ -118,7 +119,7 @@ export default class Database {
       try {
         json = JSON.parse(json);
       } catch(e) {
-        throw new DeserializationError(`The provided text is not valid JSON: "${json.length > 10 ? `${json.substr(0, 9)}...` : json}"`);
+        throw new DeserializationError(`The provided text is not valid JSON: "${ellipsize(json, 10)}"`);
       }
     }
     try {

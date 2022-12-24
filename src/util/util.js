@@ -64,6 +64,10 @@ export function debounce(func, timeout = 300){
 export function pluralize(word, count, pluralWord = null) {
   return count == 1 ? word : (pluralWord || word + "s");
 }
+// Limit the given string to {maxLength} characters, adding ellipsis if needed.
+export function ellipsize(string, maxLength) {
+  return string.length <= maxLength ? string : string.substring(0, maxLength - 3) + "...";
+}
 // Given an array of objects that have a string field called {attribute}, make it so that it is unique for
 // all objects, appending increasing numbers at the end of it to discriminate between repeats.
 export function renameObjectsToMakeThemUnique(array, attribute = "name") {

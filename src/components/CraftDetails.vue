@@ -43,6 +43,10 @@
       <input type="text" v-model="craft.lock" disabled=""/>
     </label>
     <label>
+      Override priority
+      <input type="text" v-model="craft.priority" disabled=""/>
+    </label>
+    <label>
       <input type="checkbox" v-model="craft.private" @change="database.saveToLocalStorage()"/> Private
     </label>
     <div class="row mt-3 mx-n1">
@@ -50,16 +54,8 @@
         <button class="btn btn-success w-100 ellipsis" @click="copyCompressedBCJson"><img src="@/assets/img/clip-write.svg"/> Copy as export</button>
       </div>
       <div class="col-12 col-md-6 p-1">
-        <button class="btn btn-primary w-100 ellipsis" @click="copyBCJson"><img src="@/assets/img/clip-write.svg"/> Copy as JSON</button>
-      </div>
-      <div class="col-12 col-md-6 p-1">
         <button class="btn btn-primary w-100" @click="explorerStore.toggleMultiselectionOf(craft)">
           <img src="@/assets/img/checkbox.svg"/> Select
-        </button>
-      </div>
-      <div class="col-12 col-md-6 p-1">
-        <button class="btn btn-warning w-100" @click="overwriteCraftWithClipboard" title="Overwrite this craft with the data currently in the clipboard">
-          <img src="@/assets/img/clip-read.svg"/> Overwrite
         </button>
       </div>
       <div class="col-12 col-md-6 p-1">
@@ -68,13 +64,18 @@
         </button>
       </div>
       <div class="col-12 col-md-6 p-1">
-        <button class="btn btn-danger w-100" @click="deleteCraft">
-          <img src="@/assets/img/trash.svg"/> Delete
+        <button class="btn btn-warning w-100" @click="overwriteCraftWithClipboard" title="Overwrite this craft with the data currently in the clipboard">
+          <img src="@/assets/img/clip-read.svg"/> Overwrite
         </button>
       </div>
       <div class="col-12 col-md-6 p-1">
         <button class="btn btn-primary w-100" @click="moveCraft('down')" :disabled="!craft.parent || craft.parent.crafts[craft.parent.crafts.length - 1] == craft">
           <img src="@/assets/img/arrow-down.svg"/> Move down
+        </button>
+      </div>
+      <div class="col-12 col-md-6 p-1">
+        <button class="btn btn-danger w-100" @click="deleteCraft">
+          <img src="@/assets/img/trash.svg"/> Delete
         </button>
       </div>
     </div>
@@ -114,9 +115,6 @@ export default {
     },
     copyCompressedBCJson() {
       window.navigator.clipboard.writeText(this.craft.toCompressedBCJson());
-    },
-    copyBCJson() {
-      window.navigator.clipboard.writeText(JSON.stringify(this.craft.toBCJson()));
     },
     // Update the currently selected Craft by overwriting its data with the BC JSON that the user currently has in their clipboard
     overwriteCraftWithClipboard() {
