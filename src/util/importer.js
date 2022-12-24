@@ -22,8 +22,7 @@ export default class Importer {
       }
     } else if (stringToImport.startsWith("CraftingLoadServer(")) {
       try {
-        const encodedData = stringToImport.match(/CraftingLoadServer\(["'`](.*?)["'`]\)/)[1];
-        parsedJson = BCDataStringFormat.convertBCDataStringToBCCraftJSONs(encodedData);
+        parsedJson = BCDataStringFormat.convertBCDataStringToBCCraftJSONs(stringToImport);
       } catch(e) {
         throw new ImportError(stringToImport, "CraftingLoadServer command", e);
       }

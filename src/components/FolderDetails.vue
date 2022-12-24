@@ -25,7 +25,7 @@
       </div>
       <div class="col-12 col-md-6 p-1">
         <button class="btn btn-primary w-100" @click="explorerStore.toggleMultiselectionOf(folder)">
-          <img src="@/assets/img/checkbox.svg"/> Select
+          <img src="@/assets/img/check.svg"/> Select
         </button>
       </div>
       <div class="col-12 col-md-6 p-1">

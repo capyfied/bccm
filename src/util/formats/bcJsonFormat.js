@@ -37,7 +37,7 @@ export default class BCJsonFormat {
     craft.color = bcJson.Color;
     craft.private = bcJson.Private == true;
     craft.type = bcJson.Type;
-    craft.priority = bcJson.OverridePriority;
+    craft.priority = Number.isInteger(bcJson.OverridePriority) ? bcJson.OverridePriority : null;
     return craft;
   }
   // Convert a compressed BC JSON (exported by FBC) into our internal craft format.

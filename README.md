@@ -11,4 +11,5 @@ npm run build                # Generate the production build
 npm run lint                 # Run the linter
 npm test:unit                # Run all unit tests
 npm test:unit -- foo.spec.js # Run a specific unit test file
+npm test:e2e                 # Run E2E tests (use Electron)
 ```

@@ -19,7 +19,7 @@ export default class Craft {
 
   // Convert a JSON into an Craft (this is the format we use for localStorage).
   static fromJson(json, parent = null) {
-    if (!json || !parent) throw "Missing argument";
+    if (!json) throw "Missing argument";
     const craft = new Craft();
     craft.uuid = json.uuid;
     craft.parent = parent;

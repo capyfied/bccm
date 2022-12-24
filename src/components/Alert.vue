@@ -1,33 +1,49 @@
 <!-- This component displays alerts to the user. -->
 <template>
-  <div :class="`footer-alert ${type}`">
+  <div :class="`floating-alert ${type}`" @click="clearAlert">
+    <img v-if="type == 'error'" src="@/assets/img/error.svg" class="alert-icon"/>
+    <img v-if="type == 'success'" src="@/assets/img/check.svg" class="alert-icon"/>
     {{ message }}
   </div>
 </template>
 <style>
-  .footer-alert {
+  .floating-alert {
     position: fixed;
-    width: 100%;
-    bottom: -24px;
-    left: 0;
+    max-width: 250px;
     min-height: 24px;
-    padding: 5px;
+    top: 40px;
+    right: -200px;
+    font-size: 0.8rem;
+    padding: 5px 10px;
+    border-radius: 3px;
     z-index: 100;
     text-align: center;
     background-color: rgba(93, 93, 93, 0.77);
-    border-top: 2px solid rgba(142, 142, 142, 0.67);
-    transition: bottom 0.65s;
-    transition-property: bottom, background-color, border-color;
+    border: 1px solid rgba(142, 142, 142, 0.67);
+    transition-duration: 0.3s;
+    transition-property: right, opacity, background-color, border-color;
+    cursor: pointer;
+    opacity: 0;
   }
-  .footer-alert.success {
-    bottom: 0;
+  .floating-alert:hover {
+    opacity: 0.6 !important;
+  }
+  .floating-alert.success {
+    right: 5px;
+    opacity: 1;
     background-color: rgba(56, 86, 25, 0.77);
     border-color: rgba(111, 152, 50, 0.67);
   }
-  .footer-alert.error {
-    bottom: 0;
+  .floating-alert.error {
+    right: 5px;
+    opacity: 1;
     background-color: rgba(115, 38, 38, 0.77);
     border-color: rgba(179, 66, 66, 0.67);
+  }
+  .alert-icon {
+    width: 12px;
+    margin-right: 3px;
+    user-select: none;
   }
 </style>
 <script>
@@ -44,6 +60,11 @@ export default {
       return this.alertStore.type;
     },
     ...mapStores(useAlertStore)
+  },
+  methods: {
+    clearAlert() {
+      this.alertStore.alert(null);
+    }
   }
 }
 </script>

@@ -35,8 +35,13 @@ export default class BCDataStringFormat {
     return LZString.compressToUTF16(str);
   }
   // Does the reverse of the above function, i.e. converts a UTF-encoded data string into a list of BC craft JSONs.
+  // It can also extract the data if it's inside a CraftingLoadServer command.
   static convertBCDataStringToBCCraftJSONs(dataString) {
     if (!dataString) throw "No data to deserialize.";
+    if (dataString.startsWith("CraftingLoadServer")) {
+      dataString = dataString.match(/CraftingLoadServer\(["'`](.*?)["'`]\)/)[1];
+      if (!dataString) throw "Failed to extract data from CraftingLoadServer command via regex.";
+    }
     const decompressedString = LZString.decompressFromUTF16(dataString);
     const crafts = [];
     const serializedCrafts = decompressedString.split("§");

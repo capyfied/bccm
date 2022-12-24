@@ -1,6 +1,5 @@
 import BCJsonFormat from "@/util/formats/bcJsonFormat.js";
 import Craft from "@/models/craft.js";
-import Folder from "@/models/folder.js";
 import requireGlobals from "./requireGlobals.js";
 
 const getTestCraft = () => Craft.fromJson({
@@ -14,7 +13,7 @@ const getTestCraft = () => Craft.fromJson({
   private: true,
   type: null,
   priority: null
-}, new Folder());
+});
 
 describe('BCJsonFormat', () => {
   beforeAll(requireGlobals);
