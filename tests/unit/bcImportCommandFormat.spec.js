@@ -1,8 +1,8 @@
-import BCDataStringFormat from "@/util/formats/bcDataStringFormat.js";
+import BCImportCommandFormat from "@/util/formats/bcImportCommandFormat.js";
 import Craft from "@/models/craft.js";
 import requireGlobals from "./requireGlobals.js";
 
-describe('BCDataStringFormat', () => {
+describe('BCImportCommandFormat', () => {
   beforeAll(requireGlobals);
 
   it('encodes and decodes a craft correctly', () => {
@@ -17,8 +17,8 @@ describe('BCDataStringFormat', () => {
       Type: null,
       OverridePriority: null
     };
-    const command = BCDataStringFormat.convertCraftsToBCImportCommand([Craft.fromBCJson(originalBCJson)]);
-    const decodedCrafts = BCDataStringFormat.convertBCDataStringToBCCraftJSONs(command);
+    const command = BCImportCommandFormat.convertCraftsToBCImportCommand([Craft.fromBCJson(originalBCJson)]);
+    const decodedCrafts = BCImportCommandFormat.convertBCImportCommandToBCCraftJSONs(command);
     expect(decodedCrafts).toEqual([originalBCJson]);
   });
 });

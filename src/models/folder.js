@@ -1,4 +1,4 @@
-import BCDataStringFormat from "@/util/formats/bcDataStringFormat.js";
+import BCImportCommandFormat from "@/util/formats/bcImportCommandFormat.js";
 import Craft from "@/models/craft.js";
 import { generateUuid, swap } from "@/util/util.js";
 
@@ -74,7 +74,7 @@ export default class Folder {
   }
   // Convert all the crafts in this folder into a command the user can run on BC to import them all
   toBCImportCommand() {
-    return BCDataStringFormat.convertCraftsToBCImportCommand(this.findAllCrafts());
+    return BCImportCommandFormat.convertCraftsToBCImportCommand(this.findAllCrafts());
   }
   // Move this folder up or down among its siblings. For moving to a different folder, see Database.moveFolder().
   move(direction) {

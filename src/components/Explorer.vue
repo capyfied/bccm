@@ -30,7 +30,7 @@ import stores from "@/stores/stores.js";
 import CraftDetails from "./CraftDetails.vue";
 import FolderDetails from "./FolderDetails.vue";
 import Folder from "./Folder.vue";
-import BCDataStringFormat from "@/util/formats/bcDataStringFormat.js";
+import BCImportCommandFormat from "@/util/formats/bcImportCommandFormat.js";
 import { pluralize } from "@/util/util.js";
 
 export default {
@@ -39,7 +39,7 @@ export default {
   computed: {
     ...stores,
     tooManyMultiselected() {
-      return this.multiselectionCrafts.length > BCDataStringFormat.maxCraftsExportable;
+      return this.multiselectionCrafts.length > BCImportCommandFormat.maxCraftsExportable;
     }
   },
   methods: {
@@ -48,7 +48,7 @@ export default {
     },
     copyMultiselection() {
       try {
-        window.navigator.clipboard.writeText(BCDataStringFormat.convertCraftsToBCImportCommand(this.multiselectionCrafts));
+        window.navigator.clipboard.writeText(BCImportCommandFormat.convertCraftsToBCImportCommand(this.multiselectionCrafts));
       } catch(e) {
         if (e.name == "ExportLimitError") this.alertStore.alert(e.message);
         else throw e;

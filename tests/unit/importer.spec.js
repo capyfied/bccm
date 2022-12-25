@@ -15,7 +15,7 @@ describe('BCJsonFormat', () => {
       // Base64 compressed array of BC JSONs
       'NobwRAkgLgpgtmAXGAcjKYA0YAKAnAewAcY8oBPJMAZRgGMBXPGLMAGQLoGsrWUBDOC2QBBAAQBnekxhiAdulYARGBLp4AlkSgaCc3tgDCBADYE8VAMQiA7LduZrd563waAbv1hIoeBjGwAFXISJDkGExNsAHl3Uk0AExg3cw0KMIiTAF8AXSA==',
       // CraftingLoadServer command
-      `CraftingLoadServer("๢䰫䃺ೂِ⮠乀䈤ࠠ䂇Ჲأ宪䂂ᨣ塈倭೫瑠յဠ ")`
+      `CraftingLoadServer(JSON.parse(LZString.decompressFromBase64("NobwRAkgLgpgtmAXGAcjKYA0YAKAnAewAcY8oBPJMAZRgGMBXPGLMAGQLoGsrWUBDOC2QBBAAQBnekxhiAdulYARGBLp4AlkSgaCc3tgDCBADYE8VAMQiA7LduZrd563waAbv1hIoeBjGwAFXISJDkGExNsAHl3Uk0AExg3cw0KMIiTAF8AXSA==")))`
     ].forEach(str => {
       expect(Importer.convertStringToCrafts(str)[0].name).toEqual("A secure net");
     })

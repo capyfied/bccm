@@ -1,6 +1,6 @@
 import LZString from "lz-string";
 import Craft from "@/models/craft.js";
-import BCDataStringFormat from "@/util/formats/bcDataStringFormat.js";
+import BCImportCommandFormat from "@/util/formats/bcImportCommandFormat.js";
 import { ellipsize } from "@/util/util.js";
 
 // This module is used to import crafts from strings by autodetecting their format.
@@ -10,7 +10,7 @@ export default class Importer {
   // 2) CraftingLoadServer command
   static convertStringToCrafts(stringToImport) {
     stringToImport = (stringToImport || "").trim(). // Strip leading and trailing whitespace
-      replace(/^["']/, "").replace(/["']$/, ""); // Strip leading and trailing quotes which may be included accidentally
+      replace(/^["'`]/, "").replace(/["'`]$/, ""); // Strip leading and trailing quotes which may be included accidentally
     if (!stringToImport) throw new ImportError(stringToImport, null, "No data to import.");
     // Step 1: convert the string into a JSON by decoding whichever format it is in.
     let parsedJson = null;
@@ -22,9 +22,9 @@ export default class Importer {
       }
     } else if (stringToImport.startsWith("CraftingLoadServer(")) {
       try {
-        parsedJson = BCDataStringFormat.convertBCDataStringToBCCraftJSONs(stringToImport);
+        parsedJson = BCImportCommandFormat.convertBCImportCommandToBCCraftJSONs(stringToImport);
       } catch(e) {
-        throw new ImportError(stringToImport, "CraftingLoadServer command", e);
+        throw new ImportError(stringToImport, "Import command", e);
       }
     } else if (stringToImport[0] == "{" || stringToImport[0] == "[") {
       try {
@@ -43,7 +43,7 @@ export default class Importer {
         parsedJson = [parsedJson];
       }
       try {
-        return parsedJson.map(c => Craft.fromBCJson(c));
+        return parsedJson.filter(c => c != null).map(c => Craft.fromBCJson(c));
       } catch (e) {
         throw new ImportError(stringToImport, null, e);
       }
