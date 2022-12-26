@@ -62,6 +62,7 @@ export default class Database {
   // Delete a Craft from the database
   removeCraft(craft) {
     craft.parent.crafts = craft.parent.crafts.filter(c => c != craft);
+    this.saveToLocalStorageWithDebounce();
   }
   // Move a Craft to a different Folder. For changing its position within the parent Folder, see Craft.move() instead.
   moveCraft(craft, targetFolder) {
