@@ -9,11 +9,18 @@ export default class Importer {
   // 1) BC craft JSON (or array thereof) (bare JSON or compressed base64)
   // 2) CraftingLoadServer command
   static convertStringToCrafts(stringToImport) {
-    stringToImport = (stringToImport || "").trim(). // Strip leading and trailing whitespace
-      replace(/^["'`]/, "").replace(/["'`]$/, ""); // Strip leading and trailing quotes which may be included accidentally
+    stringToImport = (stringToImport || "").trim(); // Strip leading and trailing whitespace
     if (!stringToImport) throw new ImportError(stringToImport, null, "No data to import.");
-    // Step 1: convert the string into a JSON by decoding whichever format it is in.
     let parsedJson = null;
+    // Step 1: If the user provided something surrounded by quotes, we need to do a preliminary parsing run to convert it, e.g. `"{\"Item\":...}"` to `{"Item":...}`.
+    if (stringToImport[0].match(/^['"`]/)) {
+      try {
+        stringToImport = JSON.parse(stringToImport); // The result of parsing will still be a string
+      } catch(e) {
+        throw new ImportError(stringToImport, "string", e);
+      }
+    }
+    // Step 2: convert the string into a JSON by finding out what format it is in.
     if (stringToImport.match(/^[a-zA-Z0-9+/=]+$/)) {
       try {
         parsedJson = JSON.parse(LZString.decompressFromBase64(stringToImport));
@@ -35,7 +42,7 @@ export default class Importer {
     } else {
       throw new ImportError(stringToImport, null, "The provided data does not appear to match any supported format.");
     }
-    // Step 2: once we have a JSON, find all the crafts inside and convert them
+    // Step 3: once we have a JSON, find all the crafts inside and convert them
     if (parsedJson.version && parsedJson.rootFolder) {
       throw new ImportError(stringToImport, null, "This is a full database backup, please use the backup restoring feature on the Settings page to restore this data.");
     } else {

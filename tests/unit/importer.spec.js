@@ -18,7 +18,18 @@ describe('BCJsonFormat', () => {
       `CraftingLoadServer(JSON.parse(LZString.decompressFromBase64("NobwRAkgLgpgtmAXGAcjKYA0YAKAnAewAcY8oBPJMAZRgGMBXPGLMAGQLoGsrWUBDOC2QBBAAQBnekxhiAdulYARGBLp4AlkSgaCc3tgDCBADYE8VAMQiA7LduZrd563waAbv1hIoeBjGwAFXISJDkGExNsAHl3Uk0AExg3cw0KMIiTAF8AXSA==")))`
     ].forEach(str => {
       expect(Importer.convertStringToCrafts(str)[0].name).toEqual("A secure net");
-    })
+    });
+  });
+
+  it('deals with other variants correctly', () => {
+    [
+      // BC JSON, but with spaces and tabs surrounding it
+      '	 {"Item":"Net","Property":"Secure","Lock":"","Name":"A secure net","Description":"","Color":"#A7A7A7,#A7A7A7","Private":true,"Type":null,"OverridePriority":null}   ',
+      // Array of BC JSONs, but inside a string
+      ' "[{\\"Item\\":\\"Net\\",\\"Property\\":\\"Secure\\",\\"Lock\\":\\"\\",\\"Name\\":\\"A secure net\\",\\"Description\\":\\"\\",\\"Color\\":\\"#A7A7A7,#A7A7A7\\",\\"Private\\":true,\\"Type\\":null,\\"OverridePriority\\":null}]" '
+    ].forEach(str => {
+      expect(Importer.convertStringToCrafts(str)[0].name).toEqual("A secure net");
+    });
   });
 
 });
