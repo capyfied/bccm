@@ -12,10 +12,10 @@ export default class Importer {
     stringToImport = (stringToImport || "").trim(); // Strip leading and trailing whitespace
     if (!stringToImport) throw new ImportError(stringToImport, null, "No data to import.");
     let parsedJson = null;
-    // Step 1: If the user provided something surrounded by quotes, we need to do a preliminary parsing run to convert it, e.g. `"{\"Item\":...}"` to `{"Item":...}`.
-    if (stringToImport[0].match(/^['"`]/)) {
+    // Step 1: If the user provided something surrounded by quotes, we need to do preliminary parsing to convert it, e.g. `"{\"Item\":...}"` to `{"Item":...}`.
+    if (stringToImport.match(/^['"`]/) && stringToImport.match(/['"`]$/)) {
       try {
-        stringToImport = JSON.parse(stringToImport); // The result of parsing will still be a string
+        stringToImport = eval(stringToImport); // Since single-quote strings and backtick strings are not valid JSON, we need to use eval instead of JSON.parse. This yields another string which now contains the actual JSON.
       } catch(e) {
         throw new ImportError(stringToImport, "string", e);
       }

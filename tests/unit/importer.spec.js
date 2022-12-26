@@ -24,9 +24,13 @@ describe('BCJsonFormat', () => {
   it('deals with other variants correctly', () => {
     [
       // BC JSON, but with spaces and tabs surrounding it
-      '	 {"Item":"Net","Property":"Secure","Lock":"","Name":"A secure net","Description":"","Color":"#A7A7A7,#A7A7A7","Private":true,"Type":null,"OverridePriority":null}   ',
-      // Array of BC JSONs, but inside a string
-      ' "[{\\"Item\\":\\"Net\\",\\"Property\\":\\"Secure\\",\\"Lock\\":\\"\\",\\"Name\\":\\"A secure net\\",\\"Description\\":\\"\\",\\"Color\\":\\"#A7A7A7,#A7A7A7\\",\\"Private\\":true,\\"Type\\":null,\\"OverridePriority\\":null}]" '
+      '	 { "Item":"Net","Property":"Secure","Lock":"","Name":"A secure net","Description":"","Color":"#A7A7A7,#A7A7A7","Private":true,"Type":null,"OverridePriority":null }   ',
+      // Array of BC JSONs, but inside a double-quote string
+      '"[{\\"Item\\":\\"Net\\",\\"Property\\":\\"Secure\\",\\"Lock\\":\\"\\",\\"Name\\":\\"A secure net\\",\\"Description\\":\\"\\",\\"Color\\":\\"#A7A7A7,#A7A7A7\\",\\"Private\\":true,\\"Type\\":null,\\"OverridePriority\\":null}]"',
+      // BC JSON, but inside a single-quote string
+      `'{"Item":"Net","Property":"Secure","Lock":"","Name":"A secure net","Description":"","Color":"#A7A7A7,#A7A7A7","Private":true,"Type":null,"OverridePriority":null}'`,
+      // BC JSON, but inside a backtick string
+      '`{"Item":"Net","Property":"Secure","Lock":"","Name":"A secure net","Description":"","Color":"#A7A7A7,#A7A7A7","Private":true,"Type":null,"OverridePriority":null}`'
     ].forEach(str => {
       expect(Importer.convertStringToCrafts(str)[0].name).toEqual("A secure net");
     });
