@@ -15,10 +15,10 @@
     <div v-else class="mt-2 text-sm">No crafts</div>
     <div class="row mt-2 mx-n1">
       <div class="col-12 col-md-6 p-1">
-        <button class="btn btn-success w-100 ellipsis" @click="copyImportCommand"><img src="@/assets/img/clip-write.svg"/> Copy as command</button>
+        <button class="btn btn-success w-100 ellipsis" @click="copyImportCommand" :disabled="totalCrafts == 0"><img src="@/assets/img/clip-write.svg"/> Copy as command</button>
       </div>
       <div class="col-12 col-md-6 p-1">
-        <button class="btn btn-primary w-100 ellipsis" @click="copyAsCompressedBCJsons"><img src="@/assets/img/clip-write.svg"/> Copy as export</button>
+        <button class="btn btn-primary w-100 ellipsis" @click="copyAsCompressedBCJsons" :disabled="totalCrafts == 0"><img src="@/assets/img/clip-write.svg"/> Copy as export</button>
       </div>
       <div class="col-12 col-md-6 p-1">
         <button class="btn btn-success w-100" @click="addFolder"><img src="@/assets/img/plus.svg"/> New subfolder</button>

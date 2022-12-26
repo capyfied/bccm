@@ -69,14 +69,15 @@ th {
     vertical-align: bottom;
     margin-right: 3px;
   }
+  &:hover {
+    filter: brightness(1.08);
+  }
   &:disabled {
     cursor: not-allowed;
     color: #ddd;
     opacity: 0.25;
+    background-color: #34344a;
     filter: saturate(0);
-  }
-  &:hover {
-    filter: brightness(1.08);
   }
 }
 .btn-primary {
