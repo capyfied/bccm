@@ -1,12 +1,14 @@
 import LZString from "lz-string";
 
 export default class BCImportCommandFormat {
-  static maxCraftsExportable = 40; // The limit on how many crafts can be exported at once, due to BC limitations.
+  static defaultMaxCraftsExportable = 40; // The limit on how many crafts can be exported at once, due to BC limitations.
 
   // Convert a list of Crafts into a command the user can run on BC to import them all.
-  static convertCraftsToBCImportCommand(crafts) {
+  // By default the limit is 40 crafts, but this can be optionally overriden by passing a different non-zero number.
+  static convertCraftsToBCImportCommand(crafts, limitOverride = 0) {
     if (!crafts) throw "No crafts to encode.";
-    if (crafts.length > this.maxCraftsExportable) throw new ExportLimitError();
+    const maxCraftsExportable = limitOverride || this.defaultMaxCraftsExportable;
+    if (crafts.length > maxCraftsExportable) throw new ExportLimitError(maxCraftsExportable);
     const base64Crafts = LZString.compressToBase64(JSON.stringify(crafts.map(craft => craft.toBCJson())));
     return `CraftingLoadServer(JSON.parse(LZString.decompressFromBase64("${base64Crafts}")))`;
   }
@@ -20,8 +22,8 @@ export default class BCImportCommandFormat {
   }
 }
 class ExportLimitError extends Error {
-  constructor() {
-    super(`Cannot export more than ${BCImportCommandFormat.maxCraftsExportable} crafts at once.`);
+  constructor(limit) {
+    super(`Cannot export more than ${limit} crafts at once.`);
     this.name = "ExportLimitError";
   }
 }

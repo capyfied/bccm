@@ -73,8 +73,8 @@ export default class Folder {
     return f;
   }
   // Convert all the crafts in this folder into a command the user can run on BC to import them all
-  toBCImportCommand() {
-    return BCImportCommandFormat.convertCraftsToBCImportCommand(this.findAllCrafts());
+  toBCImportCommand(limitOverride = 0) {
+    return BCImportCommandFormat.convertCraftsToBCImportCommand(this.findAllCrafts(), limitOverride);
   }
   // Move this folder up or down among its siblings. For moving to a different folder, see Database.moveFolder().
   move(direction) {

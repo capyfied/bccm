@@ -3,7 +3,8 @@ import { assertType } from "@/util/validations.js"
 // This class stores all user settings.
 export default class Settings {
   static DEFAULT_SETTINGS = {
-    confirmCraftDeletion: true
+    confirmCraftDeletion: true, // Whether a confirmation prompt appears before deleting a craft
+    overrideMaxCraftsExportableAsCommand: 0 // Lets the user choose a different limit to the amount of crafts exportable at once as a command.
   };
   static KEYS = Object.keys(Settings.DEFAULT_SETTINGS);
 
@@ -39,5 +40,6 @@ export default class Settings {
   // Check that all the settings are valid.
   validate() {
     assertType(this, 'confirmCraftDeletion', 'boolean');
+    assertType(this, 'overrideMaxCraftsExportableAsCommand', 'number');
   }
 }

@@ -2,7 +2,15 @@
   <div class="p-4">
     <h1 class="mt-0">Settings</h1>
     <label>
-      <input type="checkbox" v-model="database.settings.confirmCraftDeletion" @change="database.saveToLocalStorage()"/> Confirm before deleting crafts
+      <label class="d-block my-3">
+        <input type="checkbox" v-model="database.settings.confirmCraftDeletion" @change="database.saveToLocalStorage()"/>
+        Confirm before deleting crafts
+        <img src="@/assets/img/about.svg" class="icon help ml-1" title="If checked, you will be prompted for confirmation every time you delete a craft."/><br/>
+      </label>
+      <label class="d-block my-3">
+        Override export limit: <img src="@/assets/img/about.svg" class="icon help ml-1" title="BC limits how many crafts you can have, so BCCM will prevent you from exporting more than that at once. You can override this limit here if you want. Leave as zero to use the default."/><br/>
+        <input type="number" v-model="database.settings.overrideMaxCraftsExportableAsCommand" class="mt-1" min="0" max="999" @change="database.saveToLocalStorageWithDebounce()"/>
+      </label>
     </label>
 
     <h1>Backup</h1>

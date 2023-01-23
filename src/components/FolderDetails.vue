@@ -87,7 +87,8 @@ export default {
     // Copy all of the folder's crafts to the clipboard as a console command to run on BC to import them.
     copyImportCommand() {
       try {
-        window.navigator.clipboard.writeText(this.folder.toBCImportCommand());
+        const limitOverride = this.database.settings.overrideMaxCraftsExportableAsCommand;
+        window.navigator.clipboard.writeText(this.folder.toBCImportCommand(limitOverride));
       } catch(e) {
         if (e.name == "ExportLimitError") this.alertStore.alert(e.message);
         else throw e;

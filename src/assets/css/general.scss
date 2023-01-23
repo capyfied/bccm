@@ -40,7 +40,7 @@ small {
   font-size: 80%;
   color: #aac;
 }
-input[type="text"] {
+input[type="text"],input[type="number"] {
   margin-top: 3px;
   font-size: 0.8rem;
   background-color: #38384a;
@@ -135,6 +135,9 @@ th {
 }
 .float-right {
   float: right;
+}
+.help {
+  cursor: help;
 }
 /* Scrollbars */
 .scrollable {

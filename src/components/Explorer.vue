@@ -38,17 +38,25 @@ export default {
   components: { Folder, CraftDetails, FolderDetails },
   computed: {
     ...stores,
+    // How many crafts the user should be allowed to export as a command at once
+    maxCraftsExportableAsCommand() {
+      return this.database.settings.overrideMaxCraftsExportableAsCommand || BCImportCommandFormat.defaultMaxCraftsExportable;
+    },
+    // Whether the user has selected more crafts than they can export as a command
     tooManyMultiselected() {
-      return this.multiselectionCrafts.length > BCImportCommandFormat.maxCraftsExportable;
+      return this.multiselectionCrafts.length > this.maxCraftsExportableAsCommand;
     }
   },
   methods: {
     handleCraftClick(craft) {
       this.selectedEntity = craft;
     },
+    // Copy all multiselected crafts to the clipboard as an import command
     copyMultiselection() {
       try {
-        window.navigator.clipboard.writeText(BCImportCommandFormat.convertCraftsToBCImportCommand(this.multiselectionCrafts));
+        window.navigator.clipboard.writeText(
+          BCImportCommandFormat.convertCraftsToBCImportCommand(this.multiselectionCrafts, this.maxCraftsExportableAsCommand),
+        );
       } catch(e) {
         if (e.name == "ExportLimitError") this.alertStore.alert(e.message);
         else throw e;
