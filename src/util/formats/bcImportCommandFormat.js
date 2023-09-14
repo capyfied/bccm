@@ -1,10 +1,10 @@
 import LZString from "lz-string";
 
 export default class BCImportCommandFormat {
-  static defaultMaxCraftsExportable = 40; // The limit on how many crafts can be exported at once, due to BC limitations.
+  static defaultMaxCraftsExportable = 80; // The limit on how many crafts can be exported at once, due to BC limitations.
 
   // Convert a list of Crafts into a command the user can run on BC to import them all.
-  // By default the limit is 40 crafts, but this can be optionally overriden by passing a different non-zero number.
+  // By default the limit is 80 crafts, but this can be optionally overriden by passing a different non-zero number.
   static convertCraftsToBCImportCommand(crafts, limitOverride = 0) {
     if (!crafts) throw "No crafts to encode.";
     const maxCraftsExportable = limitOverride || this.defaultMaxCraftsExportable;
