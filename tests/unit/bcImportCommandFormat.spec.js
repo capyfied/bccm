@@ -15,7 +15,7 @@ describe('BCImportCommandFormat', () => {
       Color: "#7797C5",
       Private: true,
       Type: null,
-      OverridePriority: null
+      ItemProperty: { OverridePriority: 5 }
     };
     const command = BCImportCommandFormat.convertCraftsToBCImportCommand([Craft.fromBCJson(originalBCJson)]);
     const decodedCrafts = BCImportCommandFormat.convertBCImportCommandToBCCraftJSONs(command);

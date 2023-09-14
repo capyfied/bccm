@@ -12,7 +12,7 @@ const getTestCraft = () => Craft.fromJson({
   color: "#6F2626,#C06B6B",
   private: true,
   type: null,
-  priority: null
+  priority: 5
 });
 
 describe('BCJsonFormat', () => {
@@ -29,7 +29,7 @@ describe('BCJsonFormat', () => {
       Color: "#6F2626,#C06B6B",
       Private: true,
       Type: null,
-      OverridePriority: null
+      ItemProperty: { OverridePriority: 5 }
     };
     expect(BCJsonFormat.convertCraftToBCJson(craft)).toEqual(expectedBCJson);
     const decodedCraft = BCJsonFormat.convertBCJsonToCraft(expectedBCJson);
@@ -39,7 +39,7 @@ describe('BCJsonFormat', () => {
 
   it('encodes and decodes a compressed BC craft correctly', () => {
     const craft = getTestCraft();
-    const expectedCompressedBCJson = "N4IgkgLgpgtiBcIAyUCGEAWUBOBhA9gDaGrYgA0IACtvgA44QCeCIBMAZi5UvgMYBrVgFkoEVISqoAJoX5DKAOVQworACpQAzhAAEfIiTKUAItr7YAlnQiX8AOw3a9081Zt3HlAnLKIAxABsAGIATIHh5P64AAyBAEIJFNRWAG7oavAQ2ACuUJTqTAwI9jnElADyqThWrjR2VswlZYQAvkA=";
+    const expectedCompressedBCJson = "N4IgkgLgpgtiBcIAyUCGEAWUBOBhA9gDaGrYgA0IACtvgA44QCeCIBMAZi5UvgMYBrVgFkoEVISqoAJoX5DKAOVQworACpQAzhAAEfIiTKUAItr7YAlnQiX8AOw3a9081Zt3HlAnLKIAxABsAGIATIHh5P64AAyBAEIJFNRWAG7oavAQ2ACuUJTqTAwI9jnElJCwNPSMLPCgAPKpOFauNHZWzAgArAC+vUA=";
     expect(BCJsonFormat.convertCraftToCompressedBCJson(craft)).toEqual(expectedCompressedBCJson);
     const decodedCraft = BCJsonFormat.convertCompressedBCJsonToCraft(expectedCompressedBCJson);
     decodedCraft.uuid = craft.uuid;
