@@ -32,6 +32,9 @@
     <h1>Reset</h1>
     <p>Delete all crafts and user data.</p>
     <button class="btn btn-danger" @click="resetDatabase"><img src="@/assets/img/trash.svg"/>Delete database</button>
+
+    <h1>More</h1>
+    <button class="btn btn-primary" @click="$emit('goTo', 'lztester')"><img src="@/assets/img/cog.svg" class="icon"/> LZString decoder</button>
   </div>
 </template>
 <script>

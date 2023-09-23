@@ -23,6 +23,7 @@
     <Explorer v-if="page == 'home'"/>
     <About v-if="page == 'about'"/>
     <Settings v-if="page == 'settings'" @go-to="goTo"/>
+    <LZStringTester v-if="page == 'lztester'"/>
   </main>
 </template>
 
@@ -32,12 +33,13 @@ import stores from "@/stores/stores.js";
 import Explorer from './components/Explorer.vue';
 import About from './components/About.vue';
 import Settings from './components/Settings.vue';
+import LZStringTester from './components/LZStringTester.vue';
 import Alert from './components/Alert.vue';
 import "@/assets/css/application.scss";
 
 export default {
   name: 'App',
-  components: { Alert, Explorer, Settings, About },
+  components: { Alert, Explorer, Settings, About, LZStringTester },
   data: () => { return {
     page: "home", // [String] The page the user is currently viewing (because installing Vue Router for three little pages seems overkill).
     queryField: "" // [String] The contents of the query field, which is debounced and lowercased into explorerStore.query.

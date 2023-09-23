@@ -5,10 +5,10 @@ You can find it deployed [here](https://capyfied.github.io/bccm/).
 
 ## Development
 ```
-npm install                  # Install dependencies
-npm run serve                # Run the development server
-npm run build                # Generate the production build
-npm run lint                 # Run the linter
+npm install                      # Install dependencies
+npm run serve                    # Run the development server
+npm run build                    # Generate the production build
+npm run lint                     # Run the linter
 npm run test:unit                # Run all unit tests
 npm run test:unit -- foo.spec.js # Run a specific unit test file
 npm run test:e2e                 # Run E2E tests (use Electron)

@@ -16,6 +16,7 @@ export default class Craft {
   color = null; // [String] A comma-separated list of hex values corresponding to the craft's colors.
   private = null; // [Boolean] Whether the craft can be used by other players.
   type = null; // [String] An item-specific identifier for the default variant/position of the item to be used.
+  priority = null; // [Number or Object] The override priority, if any. May be either a single number or a hash such as { "Display": 50, "Band": 51 }
 
   // Convert a JSON into an Craft (this is the format we use for localStorage).
   static fromJson(json, parent = null) {
@@ -61,8 +62,7 @@ export default class Craft {
     assertType(this, 'color', 'string', false);
     assertType(this, 'private', 'boolean');
     assertType(this, 'type', 'string', false);
-    assertType(this, 'priority', 'number', false);
-    assert(this.priority === null || Number.isInteger(this.priority), "Priority must be an integer.");
+    assert(this.priority === null || Number.isInteger(this.priority) || typeof(this.priority) == "object", "Priority must be an integer or an object.");
     assert(this.name.length > 0 && this.name.length <= Craft.NAME_MAX_LENGTH, `Name must be between 1 and ${Craft.NAME_MAX_LENGTH} characters.`);
     assert(this.name.length <= Craft.DESCR_MAX_LENGTH, `Description must be under ${Craft.DESCR_MAX_LENGTH} characters.`);
   }

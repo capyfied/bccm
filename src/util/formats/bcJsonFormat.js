@@ -14,7 +14,7 @@ export default class BCJsonFormat {
       Color: craft.color,
       Private: craft.private,
       Type: craft.type,
-      ItemProperty: typeof(craft.priority) == "number" ? { OverridePriority: craft.priority } : undefined
+      ItemProperty: craft.priority === null ? undefined : { OverridePriority: craft.priority }
     }
   }
   // Convert our internal craft format into the compressed BC craft format used by FBC.
@@ -37,7 +37,7 @@ export default class BCJsonFormat {
     craft.color = bcJson.Color;
     craft.private = bcJson.Private == true;
     craft.type = bcJson.Type;
-    craft.priority = Number.isInteger(bcJson.ItemProperty?.OverridePriority) ? bcJson.ItemProperty?.OverridePriority : null;
+    craft.priority = bcJson.ItemProperty?.OverridePriority === undefined ? null : bcJson.ItemProperty.OverridePriority;
     return craft;
   }
   // Convert a compressed BC JSON (exported by FBC) into our internal craft format.

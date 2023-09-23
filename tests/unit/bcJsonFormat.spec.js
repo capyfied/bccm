@@ -45,4 +45,32 @@ describe('BCJsonFormat', () => {
     decodedCraft.uuid = craft.uuid;
     expect(decodedCraft.toJson()).toEqual(craft.toJson());
   });
+
+  it('encodes and decodes more crafts correctly', () => {
+    const bcJsons = [
+      {
+        Item: "FuturisticCollar",
+        Property: "Malleable",
+        Lock: "IntricatePadlock",
+        Name: "Test collar",
+        Description: "Test description",
+        Color: "#3CFF00,#FF0000,#0001FF,#FFF400",
+        Private: false,
+        Type: null,
+        ItemProperty: {
+          OverridePriority: {
+            Display: 90,
+            Band: 91,
+            Mesh: 92,
+            Lock: 93
+          }
+        }
+      }
+    ];
+    for (let bcJson of bcJsons) {
+      let craft = BCJsonFormat.convertBCJsonToCraft(bcJson);
+      let encodedJson = BCJsonFormat.convertCraftToBCJson(craft);
+      expect(bcJson).toEqual(encodedJson);
+    }
+  });
 });

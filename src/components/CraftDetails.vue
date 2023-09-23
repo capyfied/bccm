@@ -43,8 +43,8 @@
       <input type="text" v-model="craft.lock" disabled=""/>
     </label>
     <label>
-      Override priority <span v-if="craft.priority && typeof(craft.priority) == 'string'" style="color: #ff2d2d">should be a number</span>
-      <input type="text" v-model.number="craft.priority" @change="database.saveToLocalStorage()"/>
+      Override priority
+      <input type="text" :value="prettyPriority" disabled=""/>
     </label>
     <label>
       <input type="checkbox" v-model="craft.private" @change="database.saveToLocalStorage()"/> Private
@@ -97,6 +97,20 @@ export default {
     },
     nameMaxLength() { return Craft.NAME_MAX_LENGTH; },
     descrMaxLength() { return Craft.DESCR_MAX_LENGTH; },
+    prettyPriority() {
+      const p = this.craft.priority;
+      if (p === null) {
+        return "";
+      } else if (typeof(p) === "object") {
+        try {
+          return Object.entries(p).map(e => `${e[0]}: ${e[1]}`).join(", ");
+        } catch {
+          return JSON.stringify(p);
+        }
+      } else {
+        return p;
+      }
+    },
     ...stores
   },
   methods: {
@@ -145,7 +159,7 @@ export default {
     moveCraft(direction) {
       this.craft.move(direction);
       this.database.saveToLocalStorageWithDebounce();
-    },
+    }
   },
   created() {
     this.handleNameInput = debounce(this.handleNameInput, 500);
