@@ -5,7 +5,7 @@ import { assert, assertType } from "@/util/validations.js"
 // This class is our internal representation for a crafted item.
 export default class Craft {
   static NAME_MAX_LENGTH = 30; // Character limit of the name field.
-  static DESCR_MAX_LENGTH = 100; // Character limit of the description field.
+  static DESCR_MAX_LENGTH = 200; // Character limit of the description field.
   uuid = null; // [String] Internal identifier for this craft.
   parent = null; // [Folder] The Folder this craft belongs to.
   item = null; // [String] The codename of the item this craft is based on.
